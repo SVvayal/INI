@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>INI Technologies · Sales Enablement Internship 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ════════════════════════════════════════
+   DESIGN TOKENS
+════════════════════════════════════════ */
+:root {
+  --ink:      #07111f;
+  --ink2:     #1a2d45;
+  --navy:     #0d2240;
+  --blue:     #1455c0;
+  --mid:      #1e6ef4;
+  --accent:   #3b9eff;
+  --gold:     #c8922a;
+  --sky:      #eef4ff;
+  --sky2:     #f5f8ff;
+  --white:    #ffffff;
+  --border:   #dde8f5;
+  --border2:  #c8d9ee;
+  --slate:    #5a6f8a;
+  --muted:    #8fa3bc;
+  --body:     #2d3f55;
+  --shadow-s: 0 1px 4px rgba(7,17,31,.06), 0 2px 12px rgba(7,17,31,.06);
+  --shadow-m: 0 4px 8px rgba(7,17,31,.05), 0 16px 40px rgba(7,17,31,.1);
+  --shadow-l: 0 8px 16px rgba(7,17,31,.06), 0 32px 64px rgba(7,17,31,.14);
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--body);font-family:'Outfit',sans-serif;font-weight:400;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(20,85,192,.15);color:var(--navy)}
+img,svg{display:block;max-width:100%}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+a{color:inherit;text-decoration:none}
+
+/* ════════════════════════════════════════
+   TOP NAV
+════════════════════════════════════════ */
+#topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow .3s;
+}
+#topnav.scrolled { box-shadow: 0 2px 24px rgba(7,17,31,.08); }
+.nav-wrap {
+  max-width: 1240px; margin: 0 auto;
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 0 2rem; height: 64px;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: .75rem; flex-shrink: 0;
+}
+.nav-logo-mark {
+  width: 36px; height: 36px; border-radius: 9px;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .65rem; font-weight: 700; color: #fff; letter-spacing: .04em;
+  position: relative; overflow: hidden;
+}
+.nav-logo-mark::after {
+  content: ''; position: absolute;
+  inset: 0; background: linear-gradient(135deg,rgba(255,255,255,.15) 0%,transparent 60%);
+}
+.nav-logo-text { line-height: 1.15; }
+.nav-logo-primary { font-size: .9rem; font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
+.nav-logo-secondary { font-size: .62rem; color: var(--muted); font-weight: 400; }
+.nav-links {
+  display: flex; align-items: center; gap: .25rem;
+  flex: 1; justify-content: center;
+}
+.nav-link {
+  padding: .45rem .95rem; border-radius: 8px;
+  font-size: .82rem; font-weight: 500; color: var(--slate);
+  transition: all .18s; white-space: nowrap; position: relative;
+}
+.nav-link:hover { color: var(--ink); background: var(--sky); }
+.nav-link.active { color: var(--blue); font-weight: 600; background: rgba(20,85,192,.07); }
+.nav-link.active::after {
+  content: ''; position: absolute;
+  bottom: -1px; left: 50%; transform: translateX(-50%);
+  width: 20px; height: 2px;
+  background: var(--blue); border-radius: 2px;
+}
+.nav-right { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; }
+.nav-pill {
+  display: flex; align-items: center; gap: .4rem;
+  background: rgba(20,85,192,.06); border: 1px solid rgba(20,85,192,.18);
+  border-radius: 100px; padding: .35rem .9rem;
+  font-size: .72rem; font-weight: 600; color: var(--blue);
+}
+.nav-pill-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue); animation: blink 2s infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.ham-btn {
+  display: none; flex-direction: column; gap: 5px;
+  padding: 6px; border-radius: 8px;
+}
+.ham-btn span { display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:.2s }
+.mob-menu {
+  display: none; flex-direction: column; gap: 2px;
+  padding: .75rem 1.5rem 1rem;
+  border-top: 1px solid var(--border);
+  background: var(--white);
+}
+.mob-menu.open { display: flex; }
+.mob-link {
+  padding: .7rem 1rem; border-radius: var(--r-sm);
+  font-size: .88rem; font-weight: 500; color: var(--slate);
+  transition: all .15s;
+}
+.mob-link:hover,.mob-link.active { background: var(--sky); color: var(--blue); }
+@media(max-width:860px){.nav-links,.nav-right{display:none}.ham-btn{display:flex}}
+
+/* ════════════════════════════════════════
+   PAGES
+════════════════════════════════════════ */
+.page { display: none; padding-top: 64px; }
+.page.active { display: block; }
+
+/* ════════════════════════════════════════
+   HERO — OVERVIEW
+════════════════════════════════════════ */
+.hero-overview {
+  background: var(--ink);
+  position: relative; overflow: hidden;
+  padding: 7rem 2rem 5.5rem;
+  min-height: 92vh;
+  display: flex; align-items: center;
+}
+.hero-overview::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 75% 50%, rgba(20,85,192,.55) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 80% at 0% 100%, rgba(13,34,64,.8) 0%, transparent 55%);
+}
+.hero-grid-lines {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+/* Diagonal accent bar */
+.hero-accent-bar {
+  position: absolute; top: 0; right: 15%; width: 2px;
+  height: 100%; background: linear-gradient(180deg,transparent,rgba(30,110,244,.6),transparent);
+}
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1240px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 440px; gap: 5rem; align-items: center;
+}
+@media(max-width:1000px){.hero-inner{grid-template-columns:1fr;gap:3rem}}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 100px; padding: .38rem 1rem;
+  font-size: .7rem; font-weight: 600; color: rgba(255,255,255,.65);
+  letter-spacing: .1em; text-transform: uppercase;
+  margin-bottom: 2rem; backdrop-filter: blur(8px);
+}
+.hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: blink 2s infinite; }
+.hero-h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 5vw, 4.6rem);
+  font-weight: 700; color: #fff; line-height: 1.05;
+  letter-spacing: -.03em; margin-bottom: 1.5rem;
+}
+.hero-h1 em { font-style: italic; color: #7ab8ff; }
+.hero-h1 span {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--accent), #7ab8ff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-p {
+  font-size: 1.05rem; color: rgba(255,255,255,.55);
+  max-width: 520px; font-weight: 300; line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--blue); color: #fff;
+  border-radius: var(--r-sm); padding: .8rem 1.6rem;
+  font-size: .88rem; font-weight: 600; letter-spacing: .01em;
+  transition: all .2s; box-shadow: 0 4px 16px rgba(20,85,192,.4);
+}
+.btn-primary:hover { background: var(--mid); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(20,85,192,.5); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: rgba(255,255,255,.07); color: rgba(255,255,255,.8);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: var(--r-sm); padding: .8rem 1.6rem;
+  font-size: .88rem; font-weight: 500;
+  transition: all .2s; backdrop-filter: blur(4px);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.13); color: #fff; border-color: rgba(255,255,255,.28); }
+
+/* Hero card */
+.hero-card {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(16px);
+  overflow: hidden;
+}
+.hero-card-header {
+  padding: 1.5rem 1.75rem 1.2rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  display: flex; align-items: center; gap: .75rem;
+}
+.hero-card-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(20,85,192,.4); border: 1px solid rgba(30,110,244,.4);
+  display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+}
+.hero-card-title { font-size: .92rem; font-weight: 600; color: rgba(255,255,255,.9); }
+.hero-card-sub { font-size: .72rem; color: rgba(255,255,255,.4); margin-top: .1rem; }
+.hero-stats-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.hero-stat {
+  padding: 1.4rem 1.75rem; border-bottom: 1px solid rgba(255,255,255,.06);
+  border-right: 1px solid rgba(255,255,255,.06);
+}
+.hero-stat:nth-child(2n) { border-right: none; }
+.hero-stat:nth-child(n+5) { border-bottom: none; }
+.hero-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; font-weight: 700;
+  color: #fff; letter-spacing: -.03em; line-height: 1;
+  display: block;
+}
+.hero-stat-lbl { font-size: .68rem; color: rgba(255,255,255,.45); margin-top: .35rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 500; }
+
+/* Meta row */
+.hero-meta {
+  padding: 1.25rem 1.75rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+  display: flex; flex-direction: column; gap: .7rem;
+}
+.hero-meta-row { display: flex; align-items: baseline; gap: .6rem; }
+.hero-meta-k { font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.3); font-weight: 500; min-width: 80px; }
+.hero-meta-v { font-size: .82rem; color: rgba(255,255,255,.75); font-weight: 400; }
+
+/* ════════════════════════════════════════
+   STATS BAND
+════════════════════════════════════════ */
+.stats-band {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  position: relative; overflow: hidden;
+}
+.stats-band::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.stats-band-inner {
+  position: relative; z-index: 1;
+  max-width: 1240px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(5,1fr);
+  padding: 0 1rem;
+}
+@media(max-width:720px){.stats-band-inner{grid-template-columns:repeat(2,1fr)}}
+.sb-cell {
+  padding: 2.2rem 1.5rem; text-align: center;
+  border-right: 1px solid rgba(255,255,255,.1);
+  position: relative;
+}
+.sb-cell:last-child { border-right: none; }
+.sb-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem; font-weight: 700; color: #fff;
+  letter-spacing: -.04em; line-height: 1; display: block;
+}
+.sb-lbl { font-size: .68rem; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .1em; font-weight: 500; margin-top: .5rem; display: block; }
+.sb-sub { font-size: .72rem; color: rgba(255,255,255,.35); margin-top: .2rem; display: block; }
+
+/* ════════════════════════════════════════
+   SECTION STRUCTURE
+════════════════════════════════════════ */
+section { padding: 5.5rem 2rem; }
+section.tight { padding: 4rem 2rem; }
+section.alt { background: var(--sky2); }
+section.dark { background: var(--ink); }
+.max { max-width: 1240px; margin: 0 auto; }
+.eyebrow {
+  font-size: .68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .14em;
+  color: var(--blue); margin-bottom: .6rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.eyebrow::before { content: ''; width: 20px; height: 2px; background: var(--blue); border-radius: 2px; }
+.sh {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+  font-weight: 700; color: var(--ink);
+  letter-spacing: -.025em; line-height: 1.15;
+  margin-bottom: .9rem;
+}
+.sh em { font-style: italic; color: var(--blue); }
+.sh.white { color: #fff; }
+.sp {
+  font-size: .97rem; color: var(--slate);
+  font-weight: 300; line-height: 1.85; max-width: 560px;
+}
+.sp.white { color: rgba(255,255,255,.55); }
+.section-header { margin-bottom: 3.5rem; }
+.section-header-row {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem;
+}
+
+/* ════════════════════════════════════════
+   CARDS
+════════════════════════════════════════ */
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+@media(max-width:1000px){.grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid-3,.grid-4,.grid-2{grid-template-columns:1fr}}
+
+.card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 1.75rem;
+  transition: box-shadow .25s, transform .25s, border-color .25s;
+  position: relative; overflow: hidden;
+}
+.card:hover { box-shadow: var(--shadow-m); transform: translateY(-3px); border-color: var(--border2); }
+.card-top-line {
+  position: absolute; top: 0; left: 1.75rem; right: 1.75rem;
+  height: 2px; border-radius: 0 0 2px 2px;
+  background: linear-gradient(90deg, var(--blue), var(--accent));
+  opacity: 0; transition: opacity .25s;
+}
+.card:hover .card-top-line { opacity: 1; }
+.card-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: var(--sky); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.35rem; margin-bottom: 1.1rem;
+  transition: background .2s;
+}
+.card:hover .card-icon { background: rgba(20,85,192,.08); }
+.card h3 { font-size: .95rem; font-weight: 600; color: var(--ink); margin-bottom: .5rem; line-height: 1.3; }
+.card p { font-size: .82rem; color: var(--slate); line-height: 1.65; font-weight: 300; }
+.card-arrow {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .78rem; font-weight: 600; color: var(--blue);
+  margin-top: 1rem; transition: gap .2s;
+}
+.card:hover .card-arrow { gap: .6rem; }
+
+/* Feature card (large) */
+.feat-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r-lg); overflow: hidden;
+  transition: box-shadow .25s, transform .25s;
+}
+.feat-card:hover { box-shadow: var(--shadow-l); transform: translateY(-4px); }
+.feat-card-head {
+  padding: 2rem 2rem 1.5rem;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--ink2) 100%);
+  position: relative; overflow: hidden;
+}
+.feat-card-head::after {
+  content: ''; position: absolute; right: -30px; top: -30px;
+  width: 140px; height: 140px; border-radius: 50%;
+  background: rgba(30,110,244,.2);
+}
+.feat-card-label {
+  font-size: .65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .12em; color: var(--accent); margin-bottom: .6rem;
+}
+.feat-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 700; color: #fff; line-height: 1.25;
+}
+.feat-card-body { padding: 2rem; }
+.feat-card-body p { font-size: .88rem; color: var(--slate); line-height: 1.75; font-weight: 300; margin-bottom: 1.25rem; }
+
+/* ════════════════════════════════════════
+   KV TABLE
+════════════════════════════════════════ */
+.kv-table { display: flex; flex-direction: column; gap: .6rem; }
+.kv-row {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: .85rem 1.1rem; background: var(--white);
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  transition: border-color .2s;
+}
+.kv-row:hover { border-color: var(--border2); }
+.kv-k {
+  font-size: .65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--muted); min-width: 115px;
+  flex-shrink: 0; padding-top: .12rem;
+}
+.kv-v { font-size: .86rem; font-weight: 500; color: var(--ink); line-height: 1.45; }
+
+/* ════════════════════════════════════════
+   TIMELINE
+════════════════════════════════════════ */
+.timeline { position: relative; padding-left: 2.25rem; }
+.timeline::before {
+  content: ''; position: absolute; left: 8px; top: 8px;
+  bottom: 0; width: 2px;
+  background: linear-gradient(180deg, var(--blue), transparent);
+  border-radius: 2px;
+}
+.tl-item { position: relative; margin-bottom: 2.2rem; }
+.tl-item:last-child { margin-bottom: 0; }
+.tl-dot {
+  position: absolute; left: -2.7rem; top: .2rem;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--white); border: 2.5px solid var(--blue);
+  box-shadow: 0 0 0 3px rgba(20,85,192,.12);
+  display: flex; align-items: center; justify-content: center;
+}
+.tl-dot::after { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--blue); }
+.tl-phase {
+  font-size: .65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--blue); margin-bottom: .3rem;
+}
+.tl-title { font-size: .95rem; font-weight: 600; color: var(--ink); margin-bottom: .45rem; }
+.tl-body { font-size: .83rem; color: var(--slate); line-height: 1.7; font-weight: 300; }
+
+/* ════════════════════════════════════════
+   PROGRESS BARS
+════════════════════════════════════════ */
+.prog-list { display: flex; flex-direction: column; gap: 1.2rem; }
+.prog-item {}
+.prog-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: .45rem;
+}
+.prog-name { font-size: .88rem; font-weight: 600; color: var(--ink); }
+.prog-val { font-size: .78rem; font-weight: 600; color: var(--blue); font-variant-numeric: tabular-nums; }
+.prog-track {
+  height: 8px; background: var(--border);
+  border-radius: 100px; overflow: hidden; position: relative;
+}
+.prog-fill {
+  height: 100%; border-radius: 100px; width: 0;
+  transition: width 1.5s cubic-bezier(.4,0,.2,1);
+  position: relative; overflow: hidden;
+}
+.prog-fill::after {
+  content: ''; position: absolute;
+  top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);
+  animation: shimmer 2s infinite;
+}
+@keyframes shimmer { to { left: 200%; } }
+
+/* ════════════════════════════════════════
+   INFO BLOCK
+════════════════════════════════════════ */
+.info-panel {
+  background: var(--sky); border: 1px solid var(--border);
+  border-left: 4px solid var(--blue);
+  border-radius: var(--r-md); padding: 1.75rem 2rem;
+  margin-top: 2rem;
+}
+.info-panel h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem; font-weight: 600; color: var(--ink);
+  margin-bottom: .6rem;
+}
+.info-panel p { font-size: .86rem; color: var(--slate); line-height: 1.8; font-weight: 300; }
+
+/* Quote block */
+.quote-block {
+  background: var(--navy); border-radius: var(--r-lg);
+  padding: 3rem; position: relative; overflow: hidden;
+}
+.quote-block::before {
+  content: '"'; position: absolute; top: -1rem; left: 2.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10rem; color: rgba(30,110,244,.2); line-height: 1;
+}
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-style: italic; font-weight: 400;
+  color: rgba(255,255,255,.9); line-height: 1.55;
+  position: relative; z-index: 1; margin-bottom: 1.25rem;
+}
+.quote-attr { font-size: .8rem; color: rgba(255,255,255,.45); font-weight: 400; }
+
+/* ════════════════════════════════════════
+   STATUS CHIPS
+════════════════════════════════════════ */
+.chip {
+  display: inline-flex; align-items: center; gap: .3rem;
+  padding: .22rem .65rem; border-radius: 100px;
+  font-size: .65rem; font-weight: 700; letter-spacing: .03em; white-space: nowrap;
+}
+.chip-green  { background: #d1fae5; color: #065f46; }
+.chip-amber  { background: #fef3c7; color: #92400e; }
+.chip-purple { background: #ede9fe; color: #4c1d95; }
+.chip-slate  { background: #f1f5f9; color: #475569; }
+
+/* ════════════════════════════════════════
+   DELIVERABLES TABLE
+════════════════════════════════════════ */
+.filter-row {
+  display: flex; gap: .5rem; flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+.fchip {
+  padding: .4rem 1rem; border-radius: 100px;
+  border: 1.5px solid var(--border); background: var(--white);
+  font-size: .78rem; font-weight: 500; color: var(--slate);
+  transition: all .18s;
+}
+.fchip:hover { border-color: var(--blue); color: var(--blue); }
+.fchip.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+.del-wrap {
+  border: 1px solid var(--border); border-radius: var(--r-lg);
+  overflow: hidden; box-shadow: var(--shadow-s);
+}
+.del-head {
+  display: grid;
+  grid-template-columns: 50px 1fr 120px 140px 32px;
+  gap: .75rem; align-items: center;
+  padding: .8rem 1.5rem;
+  background: var(--sky2); border-bottom: 1px solid var(--border);
+}
+.del-head span {
+  font-size: .63rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted);
+}
+.del-head .dh-cnt { text-align: right; }
+@media(max-width:680px){
+  .del-head { grid-template-columns: 36px 1fr 120px 28px; }
+  .del-head .dh-cnt { display: none; }
+}
+.del-row {
+  border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background .12s;
+}
+.del-row:last-child { border-bottom: none; }
+.del-row:hover .del-main { background: var(--sky2); }
+.del-row.open .del-main { background: var(--sky); }
+.del-main {
+  display: grid;
+  grid-template-columns: 50px 1fr 120px 140px 32px;
+  gap: .75rem; align-items: center;
+  padding: .95rem 1.5rem; transition: background .12s;
+}
+@media(max-width:680px){
+  .del-main { grid-template-columns: 36px 1fr 120px 28px; }
+  .del-main .dm-cnt { display: none; }
+}
+.dm-id {
+  font-size: .68rem; font-weight: 700; color: var(--muted);
+  text-align: right; font-variant-numeric: tabular-nums;
+}
+.dm-name { font-size: .88rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.dm-tag {
+  font-size: .62rem; color: var(--muted); text-transform: uppercase;
+  letter-spacing: .06em; margin-top: .1rem; font-weight: 400;
+}
+.dm-cnt {
+  font-size: .82rem; font-weight: 600; color: var(--blue);
+  text-align: right; font-variant-numeric: tabular-nums;
+}
+.dm-cnt small { color: var(--muted); font-size: .68rem; font-weight: 400; }
+.chevron {
+  width: 16px; height: 16px; color: var(--muted);
+  transition: transform .22s; flex-shrink: 0;
+}
+.del-row.open .chevron { transform: rotate(180deg); }
+.del-detail { display: none; padding: 0 1.5rem 1.4rem 5rem; }
+.del-row.open .del-detail { display: block; animation: slideD .22s ease; }
+@keyframes slideD{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.detail-inner {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 1.25rem 1.5rem;
+}
+.detail-desc {
+  font-size: .85rem; color: var(--slate);
+  line-height: 1.75; margin-bottom: 1rem; font-weight: 300;
+}
+.detail-chips { display: flex; gap: .55rem; flex-wrap: wrap; }
+.dchip {
+  background: var(--sky); border: 1px solid var(--border);
+  border-radius: 8px; padding: .3rem .75rem; font-size: .72rem;
+}
+.dchip strong { color: var(--ink); font-weight: 600; }
+.dchip span { color: var(--slate); }
+
+/* ════════════════════════════════════════
+   OVERVIEW SCROLLING CHIPS
+════════════════════════════════════════ */
+.chips-scroll {
+  display: flex; gap: .75rem; flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+.highlight-chip {
+  display: inline-flex; align-items: center; gap: .45rem;
+  background: rgba(20,85,192,.07); border: 1px solid rgba(20,85,192,.18);
+  border-radius: 100px; padding: .42rem 1rem;
+  font-size: .78rem; font-weight: 500; color: var(--blue);
+}
+
+/* ════════════════════════════════════════
+   INI PAGE — SPLIT LAYOUT
+════════════════════════════════════════ */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+@media(max-width:860px){.split{grid-template-columns:1fr;gap:2.5rem}}
+.split.rev { }
+@media(min-width:861px){.split.rev > *:first-child{order:2}.split.rev > *:last-child{order:1}}
+
+/* ════════════════════════════════════════
+   SERVICE ACCORDION
+════════════════════════════════════════ */
+.acc-list { display: flex; flex-direction: column; gap: .6rem; }
+.acc-item {
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  overflow: hidden; transition: border-color .2s, box-shadow .2s;
+}
+.acc-item.open { border-color: rgba(20,85,192,.3); box-shadow: 0 4px 20px rgba(20,85,192,.08); }
+.acc-head {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1.1rem 1.4rem; cursor: pointer;
+  background: var(--white); transition: background .15s;
+}
+.acc-head:hover { background: var(--sky2); }
+.acc-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--sky); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+  transition: background .2s;
+}
+.acc-item.open .acc-icon { background: rgba(20,85,192,.1); }
+.acc-title { font-size: .9rem; font-weight: 600; color: var(--ink); flex: 1; }
+.acc-chevron { width: 16px; height: 16px; color: var(--muted); transition: transform .22s; flex-shrink: 0; }
+.acc-item.open .acc-chevron { transform: rotate(180deg); }
+.acc-body {
+  display: none; padding: 0 1.4rem 1.25rem 4.25rem;
+  font-size: .84rem; color: var(--slate); line-height: 1.75;
+  font-weight: 300; animation: slideD .2s ease;
+}
+.acc-item.open .acc-body { display: block; }
+
+/* ════════════════════════════════════════
+   TATA PAGE — PRODUCT CARDS WITH HOVER
+════════════════════════════════════════ */
+.product-card {
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  overflow: hidden; cursor: pointer;
+  transition: box-shadow .25s, transform .25s, border-color .25s;
+  background: var(--white);
+}
+.product-card:hover { box-shadow: var(--shadow-m); transform: translateY(-3px); border-color: var(--border2); }
+.product-card-head {
+  padding: 1.5rem; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 1rem;
+}
+.product-card-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; flex-shrink: 0;
+}
+.product-card-name { font-size: .88rem; font-weight: 600; color: var(--ink); }
+.product-card-code { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-top: .1rem; }
+.product-card-body { padding: 1.25rem 1.5rem; }
+.product-card-body p { font-size: .82rem; color: var(--slate); line-height: 1.65; font-weight: 300; }
+.product-tag {
+  display: inline-flex; align-items: center;
+  background: var(--sky); border: 1px solid var(--border);
+  border-radius: 6px; padding: .22rem .6rem;
+  font-size: .68rem; font-weight: 600; color: var(--blue);
+  margin-top: 1rem;
+}
+
+/* ════════════════════════════════════════
+   NUMBER TICKER
+════════════════════════════════════════ */
+.ticker { font-variant-numeric: tabular-nums; }
+
+/* ════════════════════════════════════════
+   IMPACT METRICS
+════════════════════════════════════════ */
+.impact-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: var(--r-lg); overflow: hidden;
+}
+@media(max-width:640px){.impact-grid{grid-template-columns:1fr}}
+.impact-cell {
+  background: var(--white); padding: 2.25rem 2rem;
+  text-align: center;
+  transition: background .2s;
+}
+.impact-cell:hover { background: var(--sky2); }
+.impact-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem; font-weight: 700; color: var(--ink);
+  letter-spacing: -.04em; line-height: 1; display: block;
+}
+.impact-lbl { font-size: .78rem; color: var(--slate); margin-top: .5rem; font-weight: 400; line-height: 1.4; }
+.impact-sub { font-size: .68rem; color: var(--muted); margin-top: .3rem; font-style: italic; }
+
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+footer {
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,.04);
+}
+.footer-top {
+  max-width: 1240px; margin: 0 auto;
+  padding: 4rem 2rem 3rem;
+  display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 3rem;
+}
+@media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr;gap:2rem}}
+@media(max-width:560px){.footer-top{grid-template-columns:1fr}}
+.footer-brand {}
+.footer-logo {
+  display: flex; align-items: center; gap: .75rem; margin-bottom: 1.1rem;
+}
+.footer-badge {
+  width: 38px; height: 38px; border-radius: 9px; background: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .68rem; font-weight: 700; color: #fff;
+}
+.footer-name { font-size: 1rem; font-weight: 700; color: #fff; }
+.footer-desc { font-size: .78rem; color: rgba(255,255,255,.38); line-height: 1.75; font-weight: 300; }
+.footer-col h5 {
+  font-size: .65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .12em; color: rgba(255,255,255,.3); margin-bottom: .9rem;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+.footer-col li { font-size: .79rem; color: rgba(255,255,255,.5); font-weight: 300; line-height: 1.45; }
+.footer-col li strong { color: rgba(255,255,255,.78); font-weight: 500; display: block; }
+.footer-bottom {
+  max-width: 1240px; margin: 0 auto;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .75rem;
+}
+.footer-copy { font-size: .72rem; color: rgba(255,255,255,.28); }
+.footer-copy span { color: rgba(255,255,255,.5); }
+
+/* ════════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════════ */
+.rv {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity .65s ease, transform .65s ease;
+}
+.rv.vis { opacity: 1; transform: translateY(0); }
+.rv.d1 { transition-delay: .08s; }
+.rv.d2 { transition-delay: .16s; }
+.rv.d3 { transition-delay: .24s; }
+
+/* ════════════════════════════════════════
+   DIVIDER
+════════════════════════════════════════ */
+.divider { height: 1px; background: var(--border); margin: 3rem 0; }
+.divider.light { background: rgba(255,255,255,.08); }
+
+/* BADGE ROW */
+.badge-row { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: 1.5rem; }
+.badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: var(--sky); border: 1px solid var(--border);
+  border-radius: 8px; padding: .32rem .8rem;
+  font-size: .73rem; font-weight: 500; color: var(--navy);
+}
+.badge.dark-bg {
+  background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.12);
+  color: rgba(255,255,255,.75);
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     TOP NAV
+══════════════════════════════════════ -->
+<nav id="topnav">
+  <div class="nav-wrap">
+    <div class="nav-logo">
+      <div class="nav-logo-mark">INI</div>
+      <div class="nav-logo-text">
+        <div class="nav-logo-primary">INI Technologies</div>
+        <div class="nav-logo-secondary">Sales Enablement 2025</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="go('overview')">Overview</button>
+      <button class="nav-link" onclick="go('ini')">INI Technologies</button>
+      <button class="nav-link" onclick="go('tata')">Tata Communications</button>
+      <button class="nav-link" onclick="go('project')">The Project</button>
+      <button class="nav-link" onclick="go('deliverables')">Deliverables</button>
+    </div>
+    <div class="nav-right">
+      <div class="nav-pill"><div class="nav-pill-dot"></div>Internship 2025</div>
+    </div>
+    <button class="ham-btn" onclick="toggleMob()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mob-menu" id="mob-menu">
+    <button class="mob-link active" onclick="go('overview');toggleMob()">Overview</button>
+    <button class="mob-link" onclick="go('ini');toggleMob()">INI Technologies</button>
+    <button class="mob-link" onclick="go('tata');toggleMob()">Tata Communications</button>
+    <button class="mob-link" onclick="go('project');toggleMob()">The Project</button>
+    <button class="mob-link" onclick="go('deliverables');toggleMob()">Deliverables</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     PAGE 1 · OVERVIEW
+══════════════════════════════════════ -->
+<div class="page active" id="pg-overview">
+
+  <!-- Hero -->
+  <div class="hero-overview">
+    <div class="hero-grid-lines"></div>
+    <div class="hero-accent-bar"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-tag"><div class="hero-tag-dot"></div>Internship Project · CHRIST University · 2025</div>
+        <h1 class="hero-h1">
+          Building South India's<br/>
+          <em>B2B Sales Intelligence</em><br/>
+          <span>Engine</span>
+        </h1>
+        <p class="hero-p">A live internship at INI Technologies Pvt. Ltd. — mapping 7,154+ companies, enriching 897+ CRM accounts, and building a full-stack lead intelligence database powering Tata Communications enterprise sales across Kerala and Karnataka.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="go('project')">Explore the Project →</button>
+          <button class="btn-ghost" onclick="go('deliverables')">View All 53 Deliverables</button>
+        </div>
+        <div style="margin-top:2rem" class="chips-scroll">
+          <span class="highlight-chip" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">🔷 Tata Communications</span>
+          <span class="highlight-chip" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">📊 Salesforce CRM</span>
+          <span class="highlight-chip" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">🔗 LinkedIn Sales Nav</span>
+          <span class="highlight-chip" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">🐍 Python Automation</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <div class="hero-card-icon">📊</div>
+          <div>
+            <div class="hero-card-title">Project Metrics</div>
+            <div class="hero-card-sub">Live internship deliverables</div>
+          </div>
+        </div>
+        <div class="hero-stats-grid">
+          <div class="hero-stat"><span class="hero-stat-num ticker" data-t="53">0</span><div class="hero-stat-lbl">Total Deliverables</div></div>
+          <div class="hero-stat"><span class="hero-stat-num ticker" data-t="31">0</span><div class="hero-stat-lbl">Completed</div></div>
+          <div class="hero-stat"><span class="hero-stat-num ticker" data-t="7154" data-s="+">0</span><div class="hero-stat-lbl">Companies Mapped</div></div>
+          <div class="hero-stat"><span class="hero-stat-num ticker" data-t="901">0</span><div class="hero-stat-lbl">Channel Partners</div></div>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-row"><span class="hero-meta-k">Student</span><span class="hero-meta-v">Abidha Maria Theres</span></div>
+          <div class="hero-meta-row"><span class="hero-meta-k">University</span><span class="hero-meta-v">CHRIST (Deemed to be University)</span></div>
+          <div class="hero-meta-row"><span class="hero-meta-k">Department</span><span class="hero-meta-v">Data Science &amp; Statistics</span></div>
+          <div class="hero-meta-row"><span class="hero-meta-k">Host Company</span><span class="hero-meta-v">INI Technologies Pvt. Ltd.</span></div>
+          <div class="hero-meta-row"><span class="hero-meta-k">Industry Mentor</span><span class="hero-meta-v">Mr. Vineeth R Nair, Sales Manager</span></div>
+          <div class="hero-meta-row"><span class="hero-meta-k">Faculty Guide</span><span class="hero-meta-v">Prof. Anna Thomas</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Band -->
+  <div class="stats-band">
+    <div class="stats-band-inner">
+      <div class="sb-cell"><span class="sb-num ticker" data-t="1457">0</span><span class="sb-lbl">Kerala Companies</span><span class="sb-sub">Consolidated master list</span></div>
+      <div class="sb-cell"><span class="sb-num ticker" data-t="897">0</span><span class="sb-lbl">SFDC Accounts</span><span class="sb-sub">Salesforce CRM enriched</span></div>
+      <div class="sb-cell"><span class="sb-num ticker" data-t="1067">0</span><span class="sb-lbl">Funded Startups</span><span class="sb-sub">FY2025 mapped</span></div>
+      <div class="sb-cell"><span class="sb-num ticker" data-t="901">0</span><span class="sb-lbl">Channel Partners</span><span class="sb-sub">Indian IT resellers</span></div>
+      <div class="sb-cell"><span class="sb-num ticker" data-t="6">0</span><span class="sb-lbl">IT Park Clusters</span><span class="sb-sub">Kerala regions covered</span></div>
+    </div>
+  </div>
+
+  <!-- Four Pillars -->
+  <section>
+    <div class="max">
+      <div class="section-header rv">
+        <div class="eyebrow">Scope of Work</div>
+        <h2 class="sh">Four pillars of the <em>engagement</em></h2>
+        <p class="sp">The internship was architected across four interconnected workstreams — each feeding directly into INI Technologies' Tata Communications reseller pipeline.</p>
+      </div>
+      <div class="grid-4">
+        <div class="card rv d1">
+          <div class="card-top-line"></div>
+          <div class="card-icon">🗺️</div>
+          <h3>Regional Market Mapping</h3>
+          <p>End-to-end company mapping across 6 Kerala IT parks and 4 Bangalore tech clusters. Over 7,154 companies identified, structured, and segmented for sales outreach.</p>
+        </div>
+        <div class="card rv d2">
+          <div class="card-top-line"></div>
+          <div class="card-icon">🔗</div>
+          <h3>LinkedIn Outreach Intelligence</h3>
+          <p>1,528-company Kochi LinkedIn database built via Sales Navigator. Decision-makers (CTO, IT Head, Network Manager) identified for targeted B2B outreach.</p>
+        </div>
+        <div class="card rv d3">
+          <div class="card-top-line"></div>
+          <div class="card-icon">📋</div>
+          <h3>Salesforce CRM Enrichment</h3>
+          <p>897+ SFDC accounts mapped, validated, and enriched with LinkedIn and web data. Pipeline data quality improved for the INI Technologies sales team.</p>
+        </div>
+        <div class="card rv">
+          <div class="card-top-line"></div>
+          <div class="card-icon">🤖</div>
+          <h3>Automation &amp; AI Tools</h3>
+          <p>Python scripts for contact scraping. AI-powered meeting note automation. Apollo.io vs Lusha full comparative study. 10+ tools evaluated and deployed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explore nav -->
+  <section class="alt tight">
+    <div class="max">
+      <div class="section-header-row rv">
+        <div>
+          <div class="eyebrow">Explore</div>
+          <h2 class="sh">Dive <em>deeper</em> into the programme</h2>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="feat-card rv" style="cursor:pointer" onclick="go('ini')">
+          <div class="feat-card-head">
+            <div class="feat-card-label">Company Profile</div>
+            <div class="feat-card-title">INI Technologies Pvt. Ltd.</div>
+          </div>
+          <div class="feat-card-body">
+            <p>Learn about INI's services, leadership team, market positioning, and its role as an authorised Tata Communications reseller serving South Indian enterprises.</p>
+            <span class="card-arrow">Read profile →</span>
+          </div>
+        </div>
+        <div class="feat-card rv d1" style="cursor:pointer" onclick="go('tata')">
+          <div class="feat-card-head">
+            <div class="feat-card-label">Partner Profile</div>
+            <div class="feat-card-title">Tata Communications</div>
+          </div>
+          <div class="feat-card-body">
+            <p>Explore Tata Communications' global network, product portfolio (ILL, MPLS, CDN, UCaaS), and why they are the connectivity backbone for South Indian IT parks.</p>
+            <span class="card-arrow">Read profile →</span>
+          </div>
+        </div>
+        <div class="feat-card rv d2" style="cursor:pointer" onclick="go('project')">
+          <div class="feat-card-head">
+            <div class="feat-card-label">Project Documentation</div>
+            <div class="feat-card-title">The Sales Enablement Programme</div>
+          </div>
+          <div class="feat-card-body">
+            <p>Full 7-phase methodology, tools used, regional coverage maps, key findings, and measurable outcomes from the internship engagement.</p>
+            <span class="card-arrow">Read project →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section class="dark">
+    <div class="max" style="max-width:800px">
+      <div class="quote-block rv">
+        <p class="quote-text">"The real value of this internship was working directly on live sales data — every company mapped, every SFDC account enriched, went straight into the sales team's pipeline for actual Tata Communications outreach."</p>
+        <div class="quote-attr">Abidha Maria Theres · Intern, INI Technologies · Data Science &amp; Statistics, CHRIST University</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 2 · INI TECHNOLOGIES
+══════════════════════════════════════ -->
+<div class="page" id="pg-ini">
+
+  <!-- Mini hero -->
+  <div style="background:var(--ink);padding:5rem 2rem 4rem;position:relative;overflow:hidden">
+    <div class="hero-grid-lines"></div>
+    <div style="position:relative;z-index:2;max-width:1240px;margin:0 auto">
+      <div class="hero-tag"><div class="hero-tag-dot"></div> Company Profile</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.4rem,4vw,3.8rem)">INI Technologies<br/><em>Pvt. Ltd.</em></h1>
+      <p class="hero-p" style="margin-bottom:0">A managed IT services and enterprise connectivity company headquartered in Bengaluru — and an authorised Tata Communications reseller powering South India's digital enterprises.</p>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <section>
+    <div class="max">
+      <div class="split rv">
+        <div>
+          <div class="eyebrow">Who They Are</div>
+          <h2 class="sh">South India's trusted <em>IT &amp; connectivity</em> partner</h2>
+          <p class="sp" style="margin-bottom:1.25rem">INI Technologies Pvt. Ltd. is a Bengaluru-based managed IT services company specialising in enterprise connectivity, telecom reselling, and digital infrastructure delivery. Founded with a focus on bridging global telecom infrastructure with regional enterprises, INI has built a substantial presence across Kerala and Karnataka as an authorised Tata Communications partner.</p>
+          <p class="sp">The company's strength lies in localised sales and support — offering enterprises the reliability of Tata Communications' Tier-1 network with the personal service and competitive pricing of a regional specialist. From dedicated internet leased lines to CDN services, INI serves a cross-sector portfolio spanning IT parks, startups, gaming, e-commerce, BFSI, and education.</p>
+          <div class="badge-row">
+            <span class="badge">🔷 Tata Communications Reseller</span>
+            <span class="badge">📍 Bengaluru, India</span>
+            <span class="badge">🌐 Kerala &amp; Karnataka</span>
+            <span class="badge">📊 Salesforce CRM</span>
+          </div>
+        </div>
+        <div class="kv-table rv d1">
+          <div class="kv-row"><span class="kv-k">Company</span><span class="kv-v">INI Technologies Pvt. Ltd.</span></div>
+          <div class="kv-row"><span class="kv-k">Headquarters</span><span class="kv-v">Bengaluru, Karnataka, India</span></div>
+          <div class="kv-row"><span class="kv-k">CEO</span><span class="kv-v">Mr. Pramod</span></div>
+          <div class="kv-row"><span class="kv-k">Sales Manager</span><span class="kv-v">Mr. Vineeth R Nair</span></div>
+          <div class="kv-row"><span class="kv-k">Industry</span><span class="kv-v">Managed IT Services · Telecom · Connectivity</span></div>
+          <div class="kv-row"><span class="kv-k">Key Partnership</span><span class="kv-v">Tata Communications (Authorised Reseller)</span></div>
+          <div class="kv-row"><span class="kv-k">CRM Platform</span><span class="kv-v">Salesforce (SFDC)</span></div>
+          <div class="kv-row"><span class="kv-k">Lead Tools</span><span class="kv-v">LinkedIn Sales Navigator · Apollo.io · Lusha</span></div>
+          <div class="kv-row"><span class="kv-k">Focus Markets</span><span class="kv-v">Kerala IT Parks · Bangalore Tech Clusters · Pan South India</span></div>
+          <div class="kv-row"><span class="kv-k">Key Verticals</span><span class="kv-v">IT/ITeS · Gaming · E-commerce · BFSI · Education · GCCs</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Accordion -->
+  <section class="alt">
+    <div class="max">
+      <div class="section-header-row">
+        <div class="rv">
+          <div class="eyebrow">Services &amp; Solutions</div>
+          <h2 class="sh">What INI Technologies <em>offers</em></h2>
+          <p class="sp">Core solutions delivered to enterprise clients through the Tata Communications partnership and INI's managed services capabilities.</p>
+        </div>
+      </div>
+      <div class="split rv">
+        <div class="acc-list">
+          <div class="acc-item open" onclick="toggleAcc(this)">
+            <div class="acc-head">
+              <div class="acc-icon">🌐</div>
+              <span class="acc-title">Enterprise Internet Leased Lines (ILL)</span>
+              <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="acc-body">Dedicated symmetric broadband connectivity with guaranteed SLAs — 99.9% uptime, consistent bandwidth, and low latency. Ideal for IT parks, corporate offices, and enterprises requiring uninterrupted, high-performance internet for cloud workloads and real-time communications.</div>
+          </div>
+          <div class="acc-item" onclick="toggleAcc(this)">
+            <div class="acc-head">
+              <div class="acc-icon">🔗</div>
+              <span class="acc-title">MPLS &amp; SD-WAN</span>
+              <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="acc-body">Multi-protocol label switching networks for secure, private WAN connectivity across branch offices. SD-WAN delivers intelligent traffic management, reducing costs while improving reliability. Particularly valuable for enterprises with multi-site Kerala and Bangalore operations.</div>
+          </div>
+          <div class="acc-item" onclick="toggleAcc(this)">
+            <div class="acc-head">
+              <div class="acc-icon">☁️</div>
+              <span class="acc-title">Cloud Connect &amp; Hosting</span>
+              <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="acc-body">Private and hybrid cloud connectivity to AWS, Azure, and GCP with enterprise-grade SLAs. Co-location and managed hosting services enable businesses to scale digital infrastructure without capital expenditure. Includes disaster recovery and business continuity planning.</div>
+          </div>
+          <div class="acc-item" onclick="toggleAcc(this)">
+            <div class="acc-head">
+              <div class="acc-icon">🚀</div>
+              <span class="acc-title">CDN &amp; Edge Delivery</span>
+              <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="acc-body">Content Delivery Network solutions through Tata Communications' Epsilon CDN platform. Low-latency content distribution critical for online gaming companies, media streaming, and e-commerce platforms requiring sub-50ms response times across Indian and global markets.</div>
+          </div>
+          <div class="acc-item" onclick="toggleAcc(this)">
+            <div class="acc-head">
+              <div class="acc-icon">🔒</div>
+              <span class="acc-title">Managed Security Services</span>
+              <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="acc-body">DDoS protection, firewall-as-a-service, and managed SIEM (Security Information and Event Management) for 24×7 threat monitoring and incident response. Designed for enterprises in BFSI, healthcare, and IT sectors with stringent data security requirements.</div>
+          </div>
+          <div class="acc-item" onclick="toggleAcc(this)">
+            <div class="acc-head">
+              <div class="acc-icon">📞</div>
+              <span class="acc-title">Unified Communications (UCaaS)</span>
+              <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="acc-body">Hosted SIP trunking, VoIP, video conferencing, and collaboration tools enabling digital workforce transformation. Replaces legacy EPABX systems with cloud-native communication infrastructure that scales with enterprise growth.</div>
+          </div>
+        </div>
+
+        <!-- Target segments -->
+        <div class="rv d1">
+          <div class="eyebrow" style="margin-bottom:1.25rem">Target Market Segments</div>
+          <div class="kv-table">
+            <div class="kv-row"><span class="kv-k">IT Parks</span><span class="kv-v">Infopark Kochi, Technopark TVM, ITPB, Manyata, Embassy Tech Village, E-City — 4 Bangalore clusters</span></div>
+            <div class="kv-row"><span class="kv-k">Funded Startups</span><span class="kv-v">1,067 companies funded in FY2025 · AI-focused firms · GCC 2025 targets</span></div>
+            <div class="kv-row"><span class="kv-k">E-commerce</span><span class="kv-v">50 online retail platforms · CDN and high-throughput connectivity needs</span></div>
+            <div class="kv-row"><span class="kv-k">Gaming</span><span class="kv-v">55 game developers &amp; providers · Low-latency CDN-critical infrastructure</span></div>
+            <div class="kv-row"><span class="kv-k">Channel Partners</span><span class="kv-v">901 Indian IT resellers identified for co-selling and partner ecosystem</span></div>
+            <div class="kv-row"><span class="kv-k">BFSI</span><span class="kv-v">Banks, cooperative banks, insurance, fintech — secure leased line targets</span></div>
+            <div class="kv-row"><span class="kv-k">Education</span><span class="kv-v">Universities, schools, EdTech platforms — high-bandwidth institutional use</span></div>
+            <div class="kv-row"><span class="kv-k">Antivirus / Security</span><span class="kv-v">Cybersecurity vendors mapped as channel co-sell opportunities</span></div>
+          </div>
+          <div class="info-panel" style="margin-top:1.5rem">
+            <h4>Competitive Positioning</h4>
+            <p>INI Technologies differentiates from large national ISPs through personalised regional service, faster SLA resolution, and competitive Tata Communications bundle pricing. In Kerala's IT park ecosystem — where Infopark and Technopark house hundreds of SMB tech companies — INI's localised model is particularly effective at winning accounts that national carriers overlook.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact numbers -->
+  <section>
+    <div class="max">
+      <div class="rv section-header">
+        <div class="eyebrow">Internship Impact at INI</div>
+        <h2 class="sh">Measurable outputs <em>delivered</em></h2>
+      </div>
+      <div class="impact-grid rv">
+        <div class="impact-cell">
+          <span class="impact-num ticker" data-t="7154" data-s="+">0</span>
+          <div class="impact-lbl">Companies mapped across Kerala &amp; Bangalore clusters</div>
+          <div class="impact-sub">Direct pipeline input for sales team</div>
+        </div>
+        <div class="impact-cell">
+          <span class="impact-num ticker" data-t="897">0</span>
+          <div class="impact-lbl">Salesforce SFDC accounts validated &amp; enriched</div>
+          <div class="impact-sub">With LinkedIn cross-reference data</div>
+        </div>
+        <div class="impact-cell">
+          <span class="impact-num ticker" data-t="53">0</span>
+          <div class="impact-lbl">Structured data sheets &amp; documents produced</div>
+          <div class="impact-sub">Fully documented and handed over</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 3 · TATA COMMUNICATIONS
+══════════════════════════════════════ -->
+<div class="page" id="pg-tata">
+
+  <div style="background:var(--ink);padding:5rem 2rem 4rem;position:relative;overflow:hidden">
+    <div class="hero-grid-lines"></div>
+    <div style="position:relative;z-index:2;max-width:1240px;margin:0 auto">
+      <div class="hero-tag"><div class="hero-tag-dot"></div> Partner Profile</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.4rem,4vw,3.8rem)">Tata<br/><em>Communications</em></h1>
+      <p class="hero-p" style="margin-bottom:0">A global digital infrastructure company, part of the $165 billion Tata Group — enabling enterprises to connect, collaborate, and compete across 190+ countries with world-class network assets.</p>
+    </div>
+  </div>
+
+  <!-- Company overview -->
+  <section>
+    <div class="max">
+      <div class="split rv">
+        <div>
+          <div class="eyebrow">About the Company</div>
+          <h2 class="sh">The backbone of <em>global enterprise</em> connectivity</h2>
+          <p class="sp" style="margin-bottom:1.25rem">Tata Communications (formerly VSNL) is a global digital ecosystem enabler that powers the digital ambitions of businesses across industries. Operating one of the world's most interconnected subsea cable networks — spanning ~500,000 km — it provides the infrastructure backbone for a vast share of the world's internet traffic.</p>
+          <p class="sp" style="margin-bottom:1.25rem">Listed on the NSE and BSE, Tata Communications serves Fortune 500 companies, governments, and fast-growing enterprises through a portfolio that spans network connectivity, cloud, cybersecurity, collaboration, and media services.</p>
+          <p class="sp">In India, Tata Communications operates as a Tier-1 ISP — the highest classification — meaning it maintains direct peering relationships globally, making it one of the fastest and most reliable backbone providers for Indian enterprises requiring international connectivity.</p>
+          <div class="badge-row">
+            <span class="badge">🌍 190+ Countries</span>
+            <span class="badge">🏢 Tata Group</span>
+            <span class="badge">📈 NSE &amp; BSE Listed</span>
+            <span class="badge">🌊 ~500K km Subsea</span>
+            <span class="badge">🇮🇳 Tier-1 ISP India</span>
+          </div>
+        </div>
+        <div class="kv-table rv d1">
+          <div class="kv-row"><span class="kv-k">Founded</span><span class="kv-v">1986 as VSNL; rebranded Tata Communications 2008</span></div>
+          <div class="kv-row"><span class="kv-k">Headquarters</span><span class="kv-v">Mumbai, Maharashtra, India</span></div>
+          <div class="kv-row"><span class="kv-k">Parent Group</span><span class="kv-v">Tata Sons Pvt. Ltd. (Tata Group)</span></div>
+          <div class="kv-row"><span class="kv-k">Global Reach</span><span class="kv-v">190+ countries · 500+ Points of Presence globally</span></div>
+          <div class="kv-row"><span class="kv-k">Network</span><span class="kv-v">~500,000 km subsea cable capacity</span></div>
+          <div class="kv-row"><span class="kv-k">Employees</span><span class="kv-v">12,000+ globally across 5 continents</span></div>
+          <div class="kv-row"><span class="kv-k">India Role</span><span class="kv-v">Tier-1 ISP · MPLS backbone · National data centres</span></div>
+          <div class="kv-row"><span class="kv-k">Key Segments</span><span class="kv-v">Enterprise · ISP Resellers · Government · Carrier</span></div>
+          <div class="kv-row"><span class="kv-k">INI Relationship</span><span class="kv-v">Authorised reseller for enterprise products in South India</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Portfolio -->
+  <section class="alt">
+    <div class="max">
+      <div class="rv section-header">
+        <div class="eyebrow">Product Portfolio</div>
+        <h2 class="sh">Solutions sold through <em>INI Technologies</em></h2>
+        <p class="sp">These are the core Tata Communications products that INI Technologies resells to enterprise clients across Kerala and Karnataka — each addressing a distinct connectivity or digital infrastructure need.</p>
+      </div>
+      <div class="grid-3 rv">
+        <div class="product-card">
+          <div class="product-card-head">
+            <div class="product-card-icon" style="background:#eff6ff">🌐</div>
+            <div><div class="product-card-name">Internet Leased Line</div><div class="product-card-code">ILL · Enterprise Internet</div></div>
+          </div>
+          <div class="product-card-body">
+            <p>Dedicated, symmetric broadband connectivity with guaranteed Service Level Agreements — 99.9% uptime, committed information rate, and priority traffic handling. The flagship product for IT parks and corporate campuses in Kerala and Bangalore.</p>
+            <span class="product-tag">🏆 Core Revenue Driver</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-head">
+            <div class="product-card-icon" style="background:#f0f9ff">🔗</div>
+            <div><div class="product-card-name">MPLS &amp; SD-WAN</div><div class="product-card-code">Wide Area Networking</div></div>
+          </div>
+          <div class="product-card-body">
+            <p>Multiprotocol Label Switching for private, secure enterprise WANs. SD-WAN brings intelligence to network management — dynamically routing traffic across circuits for optimal performance and cost efficiency across multi-site enterprises.</p>
+            <span class="product-tag">🔒 Enterprise Grade</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-head">
+            <div class="product-card-icon" style="background:#f0fdf4">☁️</div>
+            <div><div class="product-card-name">Cloud Connect</div><div class="product-card-code">Hybrid &amp; Private Cloud</div></div>
+          </div>
+          <div class="product-card-body">
+            <p>Direct, private connectivity to AWS, Azure, and Google Cloud — bypassing the public internet for deterministic performance, lower latency, and tighter security compliance. Essential for regulated industries like BFSI and healthcare.</p>
+            <span class="product-tag">☁️ Cloud-First</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-head">
+            <div class="product-card-icon" style="background:#fff7ed">🚀</div>
+            <div><div class="product-card-name">CDN — Epsilon</div><div class="product-card-code">Content Delivery Network</div></div>
+          </div>
+          <div class="product-card-body">
+            <p>Tata Communications' Epsilon CDN delivers content via globally distributed edge nodes. Critical for gaming companies, OTT platforms, and e-commerce sites requiring sub-50ms latency and traffic surge handling — high-growth segment in INI's pipeline.</p>
+            <span class="product-tag">🎮 Gaming &amp; OTT Favourite</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-head">
+            <div class="product-card-icon" style="background:#fdf4ff">🔒</div>
+            <div><div class="product-card-name">Managed Security</div><div class="product-card-code">DDoS · Firewall · SIEM</div></div>
+          </div>
+          <div class="product-card-body">
+            <p>DDoS scrubbing, next-gen firewall-as-a-service, and managed SIEM delivering 24×7 threat monitoring, detection, and response. BFSI and enterprise clients increasingly prioritise managed security as cyber threats grow in sophistication.</p>
+            <span class="product-tag">🛡️ Security-First</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-head">
+            <div class="product-card-icon" style="background:#fefce8">📞</div>
+            <div><div class="product-card-name">UCaaS &amp; Collaboration</div><div class="product-card-code">Unified Communications</div></div>
+          </div>
+          <div class="product-card-body">
+            <p>Cloud-native unified communications including hosted SIP trunking, VoIP, and collaboration tools. Replaces legacy EPABX systems enabling enterprises to build flexible, scalable communication infrastructure without capex.</p>
+            <span class="product-tag">💬 Digital Workplace</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-panel rv" style="margin-top:2.5rem">
+        <h4>Why Tata Communications for South Indian Enterprise Accounts?</h4>
+        <p>Tata Communications' Tier-1 status means it maintains direct peering with global carriers — no middle-hop latency that afflicts Tier-2 ISPs. For IT parks in Kerala (Infopark, Technopark) housing hundreds of software firms with international clients, this translates to measurably better application performance. Their CDN infrastructure is purpose-built for the gaming and OTT verticals that are high-growth segments in South India's startup ecosystem — making INI's Tata partnership especially relevant for these accounts. The combination of global-grade network and INI's regional sales expertise creates a compelling proposition that larger national carriers with centralised support models struggle to replicate.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Global reach visual -->
+  <section>
+    <div class="max">
+      <div class="rv section-header">
+        <div class="eyebrow">Network Scale</div>
+        <h2 class="sh">A truly <em>global</em> infrastructure footprint</h2>
+      </div>
+      <div class="grid-4 rv">
+        <div class="card" style="text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:var(--blue);line-height:1;margin-bottom:.5rem">190<span style="font-size:1.8rem">+</span></div>
+          <h3>Countries Covered</h3>
+          <p>One of the world's most geographically extensive enterprise network footprints.</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:var(--blue);line-height:1;margin-bottom:.5rem">500<span style="font-size:1.8rem">+</span></div>
+          <h3>Points of Presence</h3>
+          <p>Global PoPs ensuring low-latency access for enterprise customers worldwide.</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:var(--blue);line-height:1;margin-bottom:.5rem">500K</div>
+          <h3>km Subsea Cable</h3>
+          <p>Owns and operates one of the largest subsea cable capacity networks globally.</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:var(--blue);line-height:1;margin-bottom:.5rem">Tier<span style="font-size:1.8rem"> 1</span></div>
+          <h3>ISP in India</h3>
+          <p>Direct global peering — no middle-hop latency. The highest ISP classification in India.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 4 · THE PROJECT
+══════════════════════════════════════ -->
+<div class="page" id="pg-project">
+
+  <div style="background:var(--ink);padding:5rem 2rem 4rem;position:relative;overflow:hidden">
+    <div class="hero-grid-lines"></div>
+    <div style="position:relative;z-index:2;max-width:1240px;margin:0 auto">
+      <div class="hero-tag"><div class="hero-tag-dot"></div> Project Documentation</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.4rem,4vw,3.8rem)">Sales Enablement<br/><em>Programme</em></h1>
+      <p class="hero-p" style="margin-bottom:0">Full 7-phase methodology, tools, regional coverage, key findings, and measurable outcomes from the 2025 internship at INI Technologies — building South India's most comprehensive B2B sales intelligence database.</p>
+    </div>
+  </div>
+
+  <!-- Objective + KVs -->
+  <section>
+    <div class="max">
+      <div class="split rv">
+        <div>
+          <div class="eyebrow">Project Objective</div>
+          <h2 class="sh">What the internship <em>set out</em> to achieve</h2>
+          <p class="sp" style="margin-bottom:1.25rem">INI Technologies required a structured, scalable B2B lead intelligence database to power their Tata Communications reselling operations. The internship was commissioned to build this from the ground up — spanning IT park directories, LinkedIn enrichment, Salesforce CRM, and Python automation across Kerala and Karnataka.</p>
+          <p class="sp" style="margin-bottom:1.25rem">The overarching goal: transform raw IT park directories and fragmented web data into a clean, structured, Salesforce-ready prospect database — segmented by geography, vertical, company size, and decision-maker contact.</p>
+          <p class="sp">Every output from the internship was designed to be immediately actionable by the INI sales team — not academic deliverables, but live CRM inputs, enriched LinkedIn profiles, and segmented outreach lists.</p>
+        </div>
+        <div class="kv-table rv d1">
+          <div class="kv-row"><span class="kv-k">Duration</span><span class="kv-v">Full internship period, 2025</span></div>
+          <div class="kv-row"><span class="kv-k">Primary Output</span><span class="kv-v">53 structured Excel sheets + Word documents</span></div>
+          <div class="kv-row"><span class="kv-k">Companies</span><span class="kv-v">7,154+ mapped and segmented across all regions</span></div>
+          <div class="kv-row"><span class="kv-k">SFDC Accounts</span><span class="kv-v">897+ validated and enriched in Salesforce CRM</span></div>
+          <div class="kv-row"><span class="kv-k">LinkedIn DB</span><span class="kv-v">1,528-company Kochi database + Trivandrum mapping</span></div>
+          <div class="kv-row"><span class="kv-k">Kerala Coverage</span><span class="kv-v">Kochi · Trivandrum · Calicut · Thrissur · Kollam · Cherthala</span></div>
+          <div class="kv-row"><span class="kv-k">Blr Coverage</span><span class="kv-v">E-City · ITPB · Manyata Tech Park · Embassy Tech Village</span></div>
+          <div class="kv-row"><span class="kv-k">Outreach Tools</span><span class="kv-v">LinkedIn Sales Navigator · Apollo.io · Lusha · JustDial</span></div>
+          <div class="kv-row"><span class="kv-k">Automation</span><span class="kv-v">Python scraping · AI meeting note automation · GPT workflows</span></div>
+          <div class="kv-row"><span class="kv-k">CRM Platform</span><span class="kv-v">Salesforce (SFDC) — live account upload &amp; validation</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="alt">
+    <div class="max">
+      <div class="section-header-row">
+        <div class="rv">
+          <div class="eyebrow">Methodology</div>
+          <h2 class="sh">The 7-phase <em>execution</em> plan</h2>
+          <p class="sp">A structured, sequential approach — each phase building on the last to deliver a complete, layered sales intelligence asset.</p>
+        </div>
+      </div>
+      <div class="split rv">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-phase">Phase 1</div>
+            <div class="tl-title">Data Discovery &amp; Source Identification</div>
+            <div class="tl-body">Identified and evaluated primary data sources: IT park official directories (Infopark, Technopark), LinkedIn Sales Navigator, JustDial, company websites, Airtel/Tata partner portals, and funding databases (Crunchbase, Tracxn). Established master data schema, naming conventions, and sheet architecture for the 53-deliverable project structure.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-phase">Phase 2</div>
+            <div class="tl-title">Kerala IT Park Mapping</div>
+            <div class="tl-body">Systematic company-by-company mapping across all 6 Kerala regions: Kochi Infopark (4 phases · IPA, IPB, IPC, IPD · 433 companies), Trivandrum Technopark (3 phases · TPA, TPB, TPC · 520 companies), Calicut Cyberpark (72), Thrissur Infopark (49), Kollam Technopark (31), Cherthala Infopark (15). Consolidated into 1,457-company Kerala master database.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-phase">Phase 3</div>
+            <div class="tl-title">LinkedIn Sales Navigator Enrichment</div>
+            <div class="tl-body">Cross-referenced park data with LinkedIn to build company profiles, identify decision-makers (CTO, IT Manager, Head of Infrastructure, Network Engineer), and verify employee counts. Built 1,528-company Kochi LinkedIn database and Trivandrum LinkedIn mapping. Identified target roles across all verticals for outreach personalisation.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-phase">Phase 4</div>
+            <div class="tl-title">Bangalore Tech Cluster Mapping</div>
+            <div class="tl-body">Extended the mapping to four Bangalore clusters: Electronic City (257 companies, in progress), ITPB — International Tech Park Bangalore (77), Manyata Tech Park (149, completed), and Embassy Tech Village (36, in progress). Consolidated into a Bangalore master database with company names and initial profiling.</div>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-phase">Phase 5</div>
+            <div class="tl-title">Vertical &amp; Sector Segment Lists</div>
+            <div class="tl-body">Built specialised outreach lists by vertical: Gaming companies and providers (55), E-commerce websites (50), CDN providers from Kurian Sir's team (39), Indian Mobile Brands (12), Channel partners — India-wide IT reseller list (901), Funded companies FY2025 (1,067), AI-funded companies, Airtel partners, Tata Tele partners, JustDial partners, Antivirus companies, and Online stores.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-phase">Phase 6</div>
+            <div class="tl-title">Salesforce CRM Enrichment &amp; SFDC Upload</div>
+            <div class="tl-body">Mapped and validated 897+ Salesforce SFDC accounts from Vineeth's existing pipeline. Cross-referenced each account with LinkedIn for contact accuracy and data completeness. Cleaned, standardised, and enriched records for direct CRM upload. Remaining balance accounts identified and flagged for team allocation.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-phase">Phase 7</div>
+            <div class="tl-title">Automation, AI Tools &amp; Documentation</div>
+            <div class="tl-body">Developed Python automation projects for web scraping and contact data extraction. Built AI-powered meeting recording transcription and structured note generation system. Evaluated Apollo.io vs Lusha in a full feature, pricing, and ROI comparative report. Compiled GPT chat history and prompt logs as a reusable team knowledge base.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools -->
+  <section>
+    <div class="max">
+      <div class="rv section-header">
+        <div class="eyebrow">Tools &amp; Technologies</div>
+        <h2 class="sh">The <em>tech stack</em> powering the project</h2>
+      </div>
+      <div class="grid-3 rv">
+        <div class="card"><div class="card-top-line"></div><div class="card-icon">📊</div><h3>Microsoft Excel</h3><p>Primary data management platform. 53 structured sheets with pivot tables, cross-references, data validation, and consolidated views for the full lead database.</p></div>
+        <div class="card rv d1"><div class="card-top-line"></div><div class="card-icon">☁️</div><h3>Salesforce (SFDC)</h3><p>Enterprise CRM for mapping, uploading, and validating live account records. 897+ accounts enriched and fed directly into INI's sales pipeline.</p></div>
+        <div class="card rv d2"><div class="card-top-line"></div><div class="card-icon">🔗</div><h3>LinkedIn Sales Navigator</h3><p>Company mapping and decision-maker identification across all regions. 1,528+ Kochi companies profiled with contact-level enrichment for outreach.</p></div>
+        <div class="card rv"><div class="card-top-line"></div><div class="card-icon">🐍</div><h3>Python</h3><p>Custom automation scripts for web scraping, contact data extraction, and AI-powered meeting note generation — significantly reducing manual research effort.</p></div>
+        <div class="card rv d1"><div class="card-top-line"></div><div class="card-icon">🚀</div><h3>Apollo.io &amp; Lusha</h3><p>B2B contact enrichment platforms evaluated head-to-head. Full comparative report on pricing tiers, data accuracy, email verification, CRM integration, and ROI.</p></div>
+        <div class="card rv d2"><div class="card-top-line"></div><div class="card-icon">🤖</div><h3>AI &amp; GPT Workflows</h3><p>Meeting transcription automation, research synthesis, and prompt engineering for sales content. GPT history compiled as a reusable knowledge base for the team.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Progress bars -->
+  <section class="alt">
+    <div class="max">
+      <div class="rv section-header">
+        <div class="eyebrow">Regional Coverage</div>
+        <h2 class="sh">Kerala IT Parks — <em>companies mapped</em></h2>
+        <p class="sp">All six Kerala IT park regions covered. Bars represent company count relative to the largest dataset (Kochi LinkedIn at 1,528).</p>
+      </div>
+      <div class="prog-list rv" id="prog-bars">
+        <div class="prog-item">
+          <div class="prog-row"><span class="prog-name">Kochi LinkedIn Mapping</span><span class="prog-val">1,528 companies</span></div>
+          <div class="prog-track"><div class="prog-fill" data-w="100" style="background:linear-gradient(90deg,#1455c0,#1e6ef4)"></div></div>
+        </div>
+        <div class="prog-item">
+          <div class="prog-row"><span class="prog-name">Trivandrum Technopark (3 phases)</span><span class="prog-val">520 companies</span></div>
+          <div class="prog-track"><div class="prog-fill" data-w="34" style="background:linear-gradient(90deg,#1e6ef4,#3b9eff)"></div></div>
+        </div>
+        <div class="prog-item">
+          <div class="prog-row"><span class="prog-name">Kochi Infopark (4 phases)</span><span class="prog-val">433 companies</span></div>
+          <div class="prog-track"><div class="prog-fill" data-w="28" style="background:linear-gradient(90deg,#3b9eff,#60b4ff)"></div></div>
+        </div>
+        <div class="prog-item">
+          <div class="prog-row"><span class="prog-name">Calicut Cyberpark</span><span class="prog-val">72 companies</span></div>
+          <div class="prog-track"><div class="prog-fill" data-w="5" style="background:linear-gradient(90deg,#60b4ff,#93c5fd)"></div></div>
+        </div>
+        <div class="prog-item">
+          <div class="prog-row"><span class="prog-name">Thrissur Infopark</span><span class="prog-val">49 companies</span></div>
+          <div class="prog-track"><div class="prog-fill" data-w="3" style="background:linear-gradient(90deg,#93c5fd,#bfdbfe)"></div></div>
+        </div>
+        <div class="prog-item">
+          <div class="prog-row"><span class="prog-name">Kollam Technopark</span><span class="prog-val">31 companies</span></div>
+          <div class="prog-track"><div class="prog-fill" data-w="2" style="background:linear-gradient(90deg,#bfdbfe,#dbeafe)"></div></div>
+        </div>
+        <div class="prog-item">
+          <div class="prog-row"><span class="prog-name">Cherthala Infopark</span><span class="prog-val">15 companies</span></div>
+          <div class="prog-track"><div class="prog-fill" data-w="1" style="background:#dbeafe"></div></div>
+        </div>
+      </div>
+
+      <!-- Bangalore in progress -->
+      <div style="margin-top:2.5rem" class="rv">
+        <div class="eyebrow" style="margin-bottom:1.25rem">Bangalore Clusters</div>
+        <div class="grid-4">
+          <div class="card">
+            <div class="chip chip-green" style="margin-bottom:.75rem">✓ Completed</div>
+            <h3>Manyata Tech Park</h3>
+            <p style="font-size:.82rem;color:var(--slate)">149 companies fully mapped and structured for outreach.</p>
+          </div>
+          <div class="card">
+            <div class="chip chip-amber" style="margin-bottom:.75rem">⏳ In Progress</div>
+            <h3>Electronic City</h3>
+            <p style="font-size:.82rem;color:var(--slate)">257 companies identified. Enrichment ongoing.</p>
+          </div>
+          <div class="card">
+            <div class="chip chip-amber" style="margin-bottom:.75rem">⏳ In Progress</div>
+            <h3>ITPB Bangalore</h3>
+            <p style="font-size:.82rem;color:var(--slate)">77 companies identified. Mapping in progress.</p>
+          </div>
+          <div class="card">
+            <div class="chip chip-amber" style="margin-bottom:.75rem">⏳ In Progress</div>
+            <h3>Embassy Tech Village</h3>
+            <p style="font-size:.82rem;color:var(--slate)">36 companies identified. Mapping in progress.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key findings -->
+  <section>
+    <div class="max">
+      <div class="rv section-header">
+        <div class="eyebrow">Key Findings</div>
+        <h2 class="sh">What the data <em>revealed</em></h2>
+      </div>
+      <div class="grid-3 rv">
+        <div class="card"><div class="card-icon">🎮</div><h3>Gaming &amp; CDN is the fastest-growing segment</h3><p>55 game companies and 39 CDN providers were mapped — a high-concentration of bandwidth-intensive businesses in Kerala's IT parks making CDN the highest-conversion product category for INI's pipeline.</p></div>
+        <div class="card rv d1"><div class="card-icon">💰</div><h3>1,067 funded startups = high-velocity prospects</h3><p>FY2025 funded companies represent the most time-sensitive pipeline segment — newly funded startups immediately need dedicated connectivity and cloud infrastructure, reducing deal cycles significantly.</p></div>
+        <div class="card rv d2"><div class="card-icon">🤝</div><h3>Channel partner ecosystem is underutilised</h3><p>901 Indian IT channel partners identified — many of whom could be onboarded as Tata Communications co-sellers rather than competitors. The channel list represents a significant indirect sales opportunity.</p></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PAGE 5 · DELIVERABLES
+══════════════════════════════════════ -->
+<div class="page" id="pg-deliverables">
+
+  <div style="background:var(--ink);padding:5rem 2rem 4rem;position:relative;overflow:hidden">
+    <div class="hero-grid-lines"></div>
+    <div style="position:relative;z-index:2;max-width:1240px;margin:0 auto">
+      <div class="hero-tag"><div class="hero-tag-dot"></div> Complete Output</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.4rem,4vw,3.8rem)">All <em>53</em> Deliverables</h1>
+      <p class="hero-p" style="margin-bottom:0">Every Excel sheet and Word document produced across the internship — with status, record counts, and detailed descriptions. Click any row to expand.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="max">
+      <!-- Summary badges -->
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2rem" class="rv">
+        <span style="display:inline-flex;align-items:center;gap:.4rem;background:#d1fae5;border:1px solid #a7f3d0;border-radius:8px;padding:.35rem .8rem;font-size:.75rem;font-weight:600;color:#065f46">✅ 31 Completed</span>
+        <span style="display:inline-flex;align-items:center;gap:.4rem;background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:.35rem .8rem;font-size:.75rem;font-weight:600;color:#92400e">⏳ 9 In Progress</span>
+        <span style="display:inline-flex;align-items:center;gap:.4rem;background:#ede9fe;border:1px solid #ddd6fe;border-radius:8px;padding:.35rem .8rem;font-size:.75rem;font-weight:600;color:#4c1d95">🔲 3 To Be Initiated</span>
+        <span style="display:inline-flex;align-items:center;gap:.4rem;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:.35rem .8rem;font-size:.75rem;font-weight:600;color:#475569">— 10 No Status</span>
+      </div>
+
+      <!-- Filter -->
+      <div class="filter-row rv">
+        <button class="fchip on" data-f="all">All Deliverables (53)</button>
+        <button class="fchip" data-f="Completed">✅ Completed</button>
+        <button class="fchip" data-f="On Progress">⏳ In Progress</button>
+        <button class="fchip" data-f="To be Initiated">🔲 Pending</button>
+        <button class="fchip" data-f="excel">📊 Excel Sheets</button>
+        <button class="fchip" data-f="word">📄 Word Docs</button>
+      </div>
+
+      <!-- Table -->
+      <div class="del-wrap rv">
+        <div class="del-head">
+          <span>#</span>
+          <span>Sheet / Document</span>
+          <span class="dh-cnt" style="text-align:right">Records</span>
+          <span>Status</span>
+          <span></span>
+        </div>
+        <div id="del-body"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-badge">INI</div>
+        <div class="footer-name">INI Technologies Pvt. Ltd.</div>
+      </div>
+      <p class="footer-desc">Sales Enablement &amp; Lead Intelligence Internship 2025 — executed in direct partnership with Tata Communications. A live project contributing measurably to INI's enterprise B2B sales pipeline across South India. Every deliverable went directly into active use by the sales team.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Internship Details</h5>
+      <ul>
+        <li><strong>Student</strong>Abidha Maria Theres</li>
+        <li><strong>Institution</strong>CHRIST (Deemed to be University)</li>
+        <li><strong>Department</strong>Data Science &amp; Statistics, School of Sciences</li>
+        <li><strong>Faculty Guide</strong>Prof. Anna Thomas</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>University Leadership</h5>
+      <ul>
+        <li><strong>Vice Chancellor</strong>Dr. Fr. Joseph C C, CMI</li>
+        <li><strong>Dean, School of Sciences</strong>Dr. Joseph T. V.</li>
+        <li><strong>Associate Dean</strong>Dr. Deepthi Das</li>
+        <li><strong>HOD</strong>Dr. Nimitha John</li>
+        <li><strong>Coordinator</strong>Dr. Jawahar S</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>INI Technologies</h5>
+      <ul>
+        <li><strong>CEO</strong>Mr. Pramod</li>
+        <li><strong>Industry Mentor</strong>Mr. Vineeth R Nair<br/>Sales Manager</li>
+        <li><strong>Partnership</strong>Tata Communications Authorised Reseller</li>
+        <li><strong>Headquarters</strong>Bengaluru, Karnataka</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 <span>Abidha Maria Theres</span> · CHRIST (Deemed to be University)</span>
+    <span class="footer-copy">Internship at <span>INI Technologies Pvt. Ltd.</span> · Tata Communications Partner Programme</span>
+  </div>
+</footer>
+
+
+<script>
+/* ══════════════ DATA ══════════════ */
+const DATA=[
+  {id:1,  name:"Description",               status:null,         desc:"Master index and overall description of all 53 spreadsheet sheets and their purpose within the internship project.",section:"excel"},
+  {id:2,  name:"Summary",                   status:null,         desc:"Overall project summary and daily progress tracking across all tasks, intern contributions, and milestone completions.",section:"excel"},
+  {id:3,  name:"Intern WIPR",               status:null,         desc:"Individual intern progress tracking — weekly internal performance reports capturing tasks completed, targets met, and challenges flagged.",section:"excel"},
+  {id:4,  name:"Consolidated — All",        status:null,         desc:"Full mapping team consolidated database across all regions and categories. Master dataset of 2,020 records used for pivot analysis and CRM upload.",count:2020,section:"excel"},
+  {id:5,  name:"Pivot — Kerala",            status:null,         desc:"Pivot table representation of all Kerala region companies — sliced by tech park, company size, sector, and connectivity potential.",section:"excel"},
+  {id:6,  name:"Pivot — Bangalore",         status:null,         desc:"Pivot table representation of all Bangalore region companies — segmented by cluster (E-City, ITPB, Manyata, ETV) and outreach readiness.",section:"excel"},
+  {id:7,  name:"Consolidated Kerala",       status:null,         desc:"Full consolidated Kerala master database spanning all 6 IT park regions — Kochi, Trivandrum, Calicut, Thrissur, Kollam, Cherthala. Primary reference for Kerala sales.",count:1457,tm:1313,section:"excel"},
+  {id:8,  name:"KOC — Kochi Infopark",      status:"Completed",  desc:"Kochi Infopark full mapping across 4 phases: IPA (Phase 1), IPB (Phase 2), IPC (Phase 3), IPD (Phase 4). Complete directory of all 433 resident companies with profile data.",count:433,tm:373,section:"excel"},
+  {id:9,  name:"Kochi LinkedIn",            status:"Completed",  desc:"LinkedIn Sales Navigator mapping of all Kochi-based IT companies — 1,528 company profiles with decision-maker roles, employee counts, and contact availability data.",count:1528,section:"excel"},
+  {id:10, name:"TVM — Trivandrum",          status:"Completed",  desc:"Trivandrum Technopark full mapping across 3 phases: TPA, TPB, TPC. 520 companies mapped including software firms, BPOs, and IT service companies.",count:520,tm:747,section:"excel"},
+  {id:11, name:"TVM LinkedIn",              status:"Completed",  desc:"LinkedIn mapping of Trivandrum Technopark companies — cross-referenced with the TVM directory for decision-maker enrichment and role identification.",section:"excel"},
+  {id:12, name:"Thrissur Infopark",         status:"Completed",  desc:"Thrissur Infopark — Phase IPK. 49 companies fully mapped. Smaller cluster with high potential for dedicated connectivity upgrades.",count:49,section:"excel"},
+  {id:13, name:"Kollam Technopark",         status:"Completed",  desc:"Kollam Technopark — Phase TPE. 31 companies mapped. Emerging cluster with growing IT services and software presence.",count:31,section:"excel"},
+  {id:14, name:"Calicut Cyberpark",         status:"Completed",  desc:"Calicut (Kozhikode) Cyberpark — Phase CPA. 72 companies mapped including NASSCOM-registered firms. Northern Kerala's primary IT hub.",count:72,section:"excel"},
+  {id:15, name:"Cherthala Infopark",        status:"Completed",  desc:"Cherthala Infopark — Phase 1. 15 companies mapped. Niche cluster with focused IT operations.",count:15,section:"excel"},
+  {id:16, name:"Contacts & Scraping Tools", status:null,         desc:"Tools, scripts, and methodologies used for contact extraction, web scraping, and detail aggregation across LinkedIn, JustDial, and company directories.",count:10,section:"excel"},
+  {id:17, name:"SFDC — Vineeth",            status:"Completed",  desc:"Salesforce CRM account data for Vineeth's pipeline. 897 accounts mapped, validated, and enriched with LinkedIn cross-reference data for direct CRM upload.",count:897,section:"excel"},
+  {id:18, name:"SFDC LinkedIn",             status:"Completed",  desc:"LinkedIn profile cross-reference for all SFDC accounts — decision-maker identification, contact validation, and enrichment for Salesforce CRM records.",section:"excel"},
+  {id:19, name:"E-City Bangalore",          status:"On Progress",desc:"Electronic City Bangalore company mapping — 257 companies identified across the tech hub. Enrichment and contact identification in progress.",count:257,section:"excel"},
+  {id:20, name:"ITPB Bangalore",            status:"On Progress",desc:"International Tech Park Bangalore (ITPB) — 77 companies identified. Major MNC and GCC presence. Mapping and enrichment in progress.",count:77,section:"excel"},
+  {id:21, name:"Manyata Tech Park",         status:"Completed",  desc:"Manyata IT Companies, North Bengaluru — 149 companies fully mapped. Home to global tech giants' India operations. High-value enterprise accounts.",count:149,section:"excel"},
+  {id:22, name:"Embassy Tech Village",      status:"On Progress",desc:"Embassy Tech Village (ETV), Outer Ring Road Bangalore — 36 companies identified including major Fortune 500 GCCs. Mapping in progress.",count:36,section:"excel"},
+  {id:23, name:"Consolidated Bangalore",    status:null,         desc:"Master consolidated file of all Bangalore region companies across E-City, ITPB, Manyata, and ETV clusters for unified CRM upload.",section:"excel"},
+  {id:24, name:"Company Names — BGLR",      status:null,         desc:"Master list of company names across the Bangalore region — used for deduplication, cross-referencing, and territory allocation.",section:"excel"},
+  {id:25, name:"References",               status:null,         desc:"All references, data sources, directories, tools, and research databases used throughout the project — documented for reproducibility.",section:"excel"},
+  {id:26, name:"Target Roles",             status:"Completed",  desc:"LinkedIn decision-maker roles targeted across all verticals — CTO, IT Manager, Head of Infrastructure, Network Engineer, Procurement Head. Role mapping by sector.",section:"excel"},
+  {id:27, name:"Python Projects",          status:"Completed",  desc:"All Python automation projects built during the internship: web scraping scripts, data cleaning tools, contact extraction, and AI meeting note automation workflows.",section:"excel"},
+  {id:28, name:"Channel List",             status:"Completed",  desc:"Complete Indian IT channel and reseller partner list — 901 channel partners identified across India as potential Tata Communications co-selling partners.",count:901,tm:227,section:"excel"},
+  {id:29, name:"Game Companies",           status:"Completed",  desc:"Online gaming companies and game content providers mapped — 55 companies identified as high-priority CDN targets requiring low-latency infrastructure.",count:55,tm:41,section:"excel"},
+  {id:30, name:"E-commerce Websites",      status:"Completed",  desc:"E-commerce and online retail platforms — 50 companies mapped for high-bandwidth connectivity and CDN outreach. Key segment for dedicated leased line upsell.",count:50,tm:28,section:"excel"},
+  {id:31, name:"Indian Mobile Brands",     status:"Completed",  desc:"Indian mobile phone brands — 12 companies mapped for enterprise connectivity targeting. OEM and brand HQ accounts.",count:12,tm:9,section:"excel"},
+  {id:32, name:"CDN List",                 status:"Completed",  desc:"CDN provider and content delivery companies — 39 entries from Kurian Sir's team list, cross-referenced for competitive positioning and co-sell analysis.",count:39,section:"excel"},
+  {id:33, name:"Funding Companies 2025",   status:"Completed",  desc:"All companies that received funding in Financial Year 2025 — 1,067 funded startups mapped as high-urgency, high-growth prospects for connectivity and cloud.",count:1067,section:"excel"},
+  {id:34, name:"GCC 2025",                 status:"To be Initiated",desc:"Global Capability Centres (GCCs) data for 2025 — MNC India R&D and shared services hub mapping. High-value enterprise target segment. Yet to begin.",section:"excel"},
+  {id:35, name:"University Data",          status:"On Progress",desc:"University and higher education institution database — mapping in progress for broadband, Wi-Fi, and campus connectivity outreach.",section:"excel"},
+  {id:36, name:"AI Companies",             status:"To be Initiated",desc:"Artificial Intelligence and machine learning companies list — next-generation high-value prospect segment requiring high-bandwidth connectivity. Yet to begin.",section:"excel"},
+  {id:37, name:"Business Analyst Hiring",  status:null,         desc:"Companies actively hiring Business Analysts — strategic signal indicating growth phase and potential infrastructure expansion needs.",section:"excel"},
+  {id:38, name:"Vineeth SFDC Balance",     status:null,         desc:"Remaining SFDC accounts from Vineeth's pipeline yet to be fully mapped, validated, and allocated to team members for follow-up.",section:"excel"},
+  {id:39, name:"AI Funding Companies",     status:"Completed",  desc:"AI-focused and AI-adjacent funded companies — premium prospect segment. Mapping complete. High-growth, bandwidth-intensive businesses.",section:"excel"},
+  {id:40, name:"Antivirus Companies",      status:"On Progress",desc:"Antivirus and endpoint security software companies — cybersecurity vendor mapping in progress for co-sell and managed security product positioning.",section:"excel"},
+  {id:41, name:"Online Stores",            status:"On Progress",desc:"Online retail and D2C store companies — connectivity and CDN outreach mapping in progress. Surge traffic management a key value proposition.",section:"excel"},
+  {id:42, name:"JustDial Partners",        status:"Completed",  desc:"JustDial-listed technology service partners — full mapping completed. Local IT service providers and system integrators identified as referral network.",section:"excel"},
+  {id:43, name:"Airtel Partners",          status:"Completed",  desc:"Airtel ISP reseller and channel partner list — mapped for competitive intelligence and potential win-back account identification.",section:"excel"},
+  {id:44, name:"Tata Tele Partners",       status:"On Progress",desc:"Tata Telecom Business Services channel partners — mapping in progress. Existing Tata relationship signals upgrade and cross-sell opportunities.",section:"excel"},
+  {id:45, name:"Schools Data",             status:"On Progress",desc:"K-12 schools database — mapping in progress for educational institution connectivity, e-learning infrastructure, and CBSE/State board campus networking.",section:"excel"},
+  {id:46, name:"Cooperative Banks",        status:"To be Initiated",desc:"Cooperative banks and rural banking institutions — BFSI sector outreach expansion targeting secure leased line connectivity. Yet to begin.",section:"excel"},
+  {id:47, name:"Associations of Officials",status:null,         desc:"Industry associations, chambers of commerce, and official bodies — mapped for institutional partnership and referral network development.",section:"excel"},
+  {id:101,name:"SFDC Account Word Doc",    status:"Completed",  desc:"Comprehensive Word document detailing Salesforce SFDC account structures, naming conventions, data entry standards, and validation rules used across the project.",section:"word"},
+  {id:102,name:"Kochi Region Document",    status:"Completed",  desc:"Full Kochi region mapping methodology document — Infopark phase breakdown, LinkedIn enrichment approach, and classification framework for Kochi accounts.",section:"word"},
+  {id:103,name:"TECQIT Document",          status:"Completed",  desc:"Detailed documentation of TECQIT company engagement — background, profile, product fit analysis, and recommended Tata Communications solution mapping.",section:"word"},
+  {id:104,name:"AI Meeting Automation",    status:"Completed",  desc:"Technical and functional documentation for the AI-powered meeting automation system — records meetings, transcribes audio, and generates structured action-item notes automatically.",section:"word"},
+  {id:105,name:"Apollo vs Lusha Report",   status:"Completed",  desc:"Full comparative analysis of Apollo.io vs Lusha for B2B lead enrichment — pricing tiers, data coverage, email verification accuracy, CRM integration, and final recommendation for INI's use case.",section:"word"},
+  {id:106,name:"GPT Chat History",         status:"On Progress",desc:"Ongoing compilation, organisation, and annotation of GPT interaction history — useful prompts, research summaries, and AI-generated content catalogued as a reusable team knowledge base.",section:"word"},
+];
+
+const SM={
+  "Completed":      {cls:"chip-green",  l:"Completed"},
+  "On Progress":    {cls:"chip-amber",  l:"In Progress"},
+  "To be Initiated":{cls:"chip-purple", l:"Pending"},
+};
+
+let activeF="all", openId=null;
+
+/* ── NAV ── */
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
+  document.querySelectorAll('.nav-link,.mob-link').forEach(b=>{
+    const oc=b.getAttribute('onclick')||'';
+    b.classList.toggle('active', oc.includes("'"+id+"'"));
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>{
+    initReveal();
+    if(id==='overview'||id==='ini') triggerCounters();
+    if(id==='project') initBars();
+    if(id==='deliverables') renderDel();
+  },50);
+}
+function toggleMob(){
+  document.getElementById('mob-menu').classList.toggle('open');
+}
+
+/* ── SCROLL NAV SHADOW ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('topnav').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+/* ── COUNTERS ── */
+function animTicker(el){
+  const t=parseInt(el.dataset.t), s=el.dataset.s||'';
+  let st=null; const dur=1600;
+  const ease=p=>p<.5?4*p*p*p:(p-1)*(2*p-2)*(2*p-2)+1;
+  const step=ts=>{
+    if(!st)st=ts;
+    const p=Math.min((ts-st)/dur,1);
+    el.textContent=Math.round(ease(p)*t).toLocaleString()+s;
+    if(p<1)requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+function triggerCounters(){
+  document.querySelectorAll('.ticker:not(.ticked)').forEach(el=>{
+    el.classList.add('ticked'); animTicker(el);
+  });
+}
+
+/* ── PROGRESS BARS ── */
+let barsInit=false;
+function initBars(){
+  if(barsInit)return; barsInit=true;
+  setTimeout(()=>{
+    document.querySelectorAll('.prog-fill[data-w]').forEach(el=>{
+      el.style.width=el.dataset.w+'%';
+    });
+  },150);
+}
+
+/* ── REVEAL ── */
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); });
+},{threshold:.1});
+function initReveal(){
+  document.querySelectorAll('.rv:not(.vis)').forEach(el=>revObs.observe(el));
+}
+
+/* ── ACCORDION ── */
+function toggleAcc(item){
+  item.classList.toggle('open');
+}
+
+/* ── DELIVERABLES ── */
+function chipFor(s){
+  if(!s) return`<span class="chip chip-slate">—</span>`;
+  const m=SM[s]; return`<span class="chip ${m.cls}">${m.l}</span>`;
+}
+function renderDel(){
+  const list=DATA.filter(d=>{
+    if(activeF==='excel'||activeF==='word') return d.section===activeF;
+    if(activeF==='all') return true;
+    return d.status===activeF;
+  });
+  const body=document.getElementById('del-body');
+  if(!list.length){
+    body.innerHTML='<div style="padding:3rem;text-align:center;color:var(--muted);font-size:.88rem">No deliverables match this filter.</div>';
+    return;
+  }
+  body.innerHTML=list.map(d=>{
+    const isOpen=openId===d.id;
+    const sid=d.id<=100?String(d.id).padStart(2,'0'):'W'+(d.id-100);
+    return`<div class="del-row${isOpen?' open':''}" onclick="toggleDel(${d.id})">
+      <div class="del-main">
+        <span class="dm-id">${sid}</span>
+        <div>
+          <div class="dm-name">${d.name}</div>
+          <div class="dm-tag">${d.section==='excel'?'📊 Excel Sheet':'📄 Word Document'}</div>
+        </div>
+        <div class="dm-cnt">${d.count?`${d.count.toLocaleString()}<small> rec.</small>`:''}</div>
+        ${chipFor(d.status)}
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </div>
+      <div class="del-detail">
+        <div class="detail-inner">
+          <p class="detail-desc">${d.desc}</p>
+          <div class="detail-chips">
+            <div class="dchip"><strong>Section</strong> <span>${d.section==='excel'?'Excel Spreadsheet':'Word Document'}</span></div>
+            ${d.count?`<div class="dchip"><strong>Records</strong> <span>${d.count.toLocaleString()}</span></div>`:''}
+            ${d.tm?`<div class="dchip"><strong>TM Count</strong> <span>${d.tm.toLocaleString()}</span></div>`:''}
+            <div class="dchip"><strong>Status</strong> <span>${d.status||'Not Set'}</span></div>
+            <div class="dchip"><strong>ID</strong> <span>#${d.id}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleDel(id){ openId=openId===id?null:id; renderDel(); }
+
+document.querySelectorAll('.fchip').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.fchip').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    activeF=btn.dataset.f; openId=null; renderDel();
+  });
+});
+
+/* ── INIT ── */
+initReveal();
+setTimeout(triggerCounters,300);
+
+/* Stats band observer for counters */
+const sbObs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){ triggerCounters(); sbObs.disconnect(); }
+},{threshold:.3});
+const sb=document.querySelector('.stats-band');
+if(sb) sbObs.observe(sb);
+</script>
+</body>
+</html>
